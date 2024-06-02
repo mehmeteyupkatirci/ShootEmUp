@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -8,6 +7,8 @@ public class Player : MonoBehaviour
     public GameObject bulletPrefab;
     public int additionalProjectiles = 0; // Ekstra ateş edilecek mermi sayısı
     public float spreadAngle = 10f; // Mermilerin yayılma açısı
+    public float shootDelay = 0.4f; // Ateş etme hızı
+    private float minShootDelay = 0.1f; // Minimum ateş etme hızı
 
     private bool isShooting = false;
 
@@ -19,6 +20,14 @@ public class Player : MonoBehaviour
     public void AddProjectile()
     {
         additionalProjectiles++;
+    }
+
+    public void IncreaseFireRate(float amount)
+    {
+        if (shootDelay > minShootDelay)
+        {
+            shootDelay = Mathf.Max(shootDelay - amount, minShootDelay);
+        }
     }
 
     public void StartShooting()
@@ -35,7 +44,7 @@ public class Player : MonoBehaviour
         while (isShooting)
         {
             Shoot();
-            yield return new WaitForSeconds(0.1f); // Ateş etme hızını ayarlayın
+            yield return new WaitForSeconds(shootDelay);
         }
     }
 
@@ -53,6 +62,18 @@ public class Player : MonoBehaviour
 
             Instantiate(bulletPrefab, firePoint.position, rotationLeft);
             Instantiate(bulletPrefab, firePoint.position, rotationRight);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("PowerUp"))
+        {
+            PowerUp powerUp = collision.GetComponent<PowerUp>();
+            if (powerUp != null)
+            {
+                powerUp.ApplyPowerUp(this);
+            }
         }
     }
 }

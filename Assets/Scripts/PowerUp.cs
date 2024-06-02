@@ -2,16 +2,21 @@ using UnityEngine;
 
 public class PowerUp : MonoBehaviour
 {
-    private void OnTriggerEnter2D(Collider2D collision)
+    public enum PowerUpType { AddProjectile, IncreaseFireRate }
+    public PowerUpType powerUpType;
+    public float fireRateIncreaseAmount = 0.05f; // Ateş etme hızını azaltma miktarı
+
+    public void ApplyPowerUp(Player player)
     {
-        if (collision.CompareTag("Player"))
+        switch (powerUpType)
         {
-            Player playerScript = collision.GetComponent<Player>();
-            if (playerScript != null)
-            {
-                playerScript.AddProjectile();
-                Destroy(gameObject); // PowerUp nesnesini yok et
-            }
+            case PowerUpType.AddProjectile:
+                player.AddProjectile();
+                break;
+            case PowerUpType.IncreaseFireRate:
+                player.IncreaseFireRate(fireRateIncreaseAmount);
+                break;
         }
+        Destroy(gameObject);
     }
 }
