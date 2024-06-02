@@ -45,6 +45,9 @@ GameObject:
   - component: {fileID: 40646362217219614}
   - component: {fileID: 2429165052113316253}
   - component: {fileID: 2535253277719141217}
+  - component: {fileID: -689664695169847015}
+  - component: {fileID: 6617292952551910694}
+  - component: {fileID: 4706225046595643831}
   m_Layer: 0
   m_Name: Enemy2
   m_TagString: Untagged
@@ -204,14 +207,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ddfa07422334a144a5e2b4b2f22ed05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
-  health: 5
-  powerUpDropChance: 0.2
-  powerUpList:
-  - powerUpPrefab: {fileID: 7764129048511618294, guid: 9aa1d8715d84cd64092c8301d414500e, type: 3}
-    dropChanceWeight: 0.2
-  - powerUpPrefab: {fileID: 7513805807508259902, guid: 7a4f7be12cea0454a92287af199c93ad, type: 3}
-    dropChanceWeight: 0.8
 --- !u!114 &2535253277719141217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,3 +222,47 @@ MonoBehaviour:
   bulletPrefab: {fileID: 3080673028425514532, guid: c613b5efb6f2b744aad3c9181c29f9e3, type: 3}
   firePoint: {fileID: 2204051492496707207}
   fireRate: 0.6
+--- !u!114 &-689664695169847015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8145617110914015546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6311184909a9e4b4bbf58a9861355226, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 2
+--- !u!114 &6617292952551910694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8145617110914015546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68574f5c092dbc242bfcb8be421b779e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 10
+--- !u!114 &4706225046595643831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8145617110914015546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a73dd4561ad091b45ab1df55e5267d90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerUpDropChance: 0.2
+  powerUpList:
+  - powerUpPrefab: {fileID: 7764129048511618294, guid: 9aa1d8715d84cd64092c8301d414500e, type: 3}
+    dropChanceWeight: 0.2
+  - powerUpPrefab: {fileID: 7513805807508259902, guid: 7a4f7be12cea0454a92287af199c93ad, type: 3}
+    dropChanceWeight: 0.8
