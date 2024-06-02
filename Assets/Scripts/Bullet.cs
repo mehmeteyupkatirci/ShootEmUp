@@ -4,23 +4,18 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-  
-    public float speed = 10f;
+    public float speed = 10f;       // Merminin hareket hızı
+    public float lifetime = 2f;     // Merminin ömrü (saniye cinsinden)
 
-    void Start()
+    private void Start()
     {
-        // Merminin yaşam süresini belirlemek için
-        Destroy(gameObject, 2f);
+        // Belirli bir süre sonra mermiyi yok et
+        Destroy(gameObject, lifetime);
     }
 
-    void Update()
+    private void Update()
     {
+        // Mermiyi ileriye doğru hareket ettir
         transform.Translate(Vector3.up * speed * Time.deltaTime);
     }
-
-    void OnBecameInvisible()
-    {
-        Destroy(gameObject);
-    }
-
 }
