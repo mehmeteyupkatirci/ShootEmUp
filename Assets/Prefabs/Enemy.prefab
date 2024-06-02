@@ -173,3 +173,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   health: 3
+  powerUpDropChance: 0.2
+  powerUpList:
+  - powerUpPrefab: {fileID: 7764129048511618294, guid: 9aa1d8715d84cd64092c8301d414500e, type: 3}
+    dropChanceWeight: 0.2
+  - powerUpPrefab: {fileID: 7513805807508259902, guid: 7a4f7be12cea0454a92287af199c93ad, type: 3}
+    dropChanceWeight: 0.8

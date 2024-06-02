@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
 
     public void AddProjectile()
     {
-        additionalProjectiles++;
+        additionalProjectiles += 1;
     }
 
     public void IncreaseFireRate(float amount)
