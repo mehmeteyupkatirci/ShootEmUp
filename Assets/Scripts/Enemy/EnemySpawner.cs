@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject enemyPrefab; // Düşman prefab'ı
+    public GameObject[] enemyPrefabs; // Düşman prefab'larının listesi
     public float spawnInterval = 2f; // Düşmanların oluşma süresi
     public float xMin, xMax; // X eksenindeki minimum ve maksimum değerler
 
@@ -26,6 +26,9 @@ public class EnemySpawner : MonoBehaviour
         // Rastgele bir X pozisyonu seç
         float randomX = Random.Range(xMin, xMax);
         Vector3 spawnPosition = new Vector3(randomX, transform.position.y, 0);
-        Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+
+        // Rastgele bir düşman prefab'ı seç
+        int randomIndex = Random.Range(0, enemyPrefabs.Length);
+        Instantiate(enemyPrefabs[randomIndex], spawnPosition, Quaternion.identity);
     }
 }
