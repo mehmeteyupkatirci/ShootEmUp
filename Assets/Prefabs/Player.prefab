@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 4767510199048396716}
   - component: {fileID: 5187158347768473902}
   - component: {fileID: 6204949688049103885}
-  - component: {fileID: -1778384504344455762}
+  - component: {fileID: 6510444107000766227}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -222,8 +222,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 4798531951604226628, guid: ccf40477f35f047429481f36154b18c9, type: 3}
   additionalProjectiles: 0
   spreadAngle: 10
-  shootDelay: 0.4
---- !u!114 &-1778384504344455762
+--- !u!114 &6510444107000766227
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -232,7 +231,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2824758981732498348}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ccbebd99aea1d940bff6854b4d841ee, type: 3}
+  m_Script: {fileID: 11500000, guid: 1a8e19bd50889f545a77dbba41c7c5f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 10

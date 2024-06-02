@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class EnemyPowerUpDrop : MonoBehaviour
 {
-    public float powerUpDropChance = 0.2f; // Güçlendirme düşme olasılığı (0.2 = %20)
-    public List<PowerUpData> powerUpList = new List<PowerUpData>(); // Güçlendirme prefabları ve ağırlıkları
+    public float powerUpDropChance = 0.2f;
+    public List<PowerUpData> powerUpList = new List<PowerUpData>();
 
     public void DropPowerUp()
     {
@@ -47,11 +47,11 @@ public class EnemyPowerUpDrop : MonoBehaviour
     private PowerUp.PowerUpType GetRandomPowerUpType()
     {
         float randomValue = Random.value;
-        if (randomValue < 0.3f) // %30 olasılıkla AddProjectile
+        if (randomValue < 0.3f)
         {
             return PowerUp.PowerUpType.AddProjectile;
         }
-        else // %70 olasılıkla IncreaseFireRate
+        else
         {
             return PowerUp.PowerUpType.IncreaseFireRate;
         }

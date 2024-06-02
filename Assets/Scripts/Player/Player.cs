@@ -7,27 +7,24 @@ public class Player : MonoBehaviour
     public GameObject bulletPrefab;
     public int additionalProjectiles = 0; // Ekstra ateş edilecek mermi sayısı
     public float spreadAngle = 10f; // Mermilerin yayılma açısı
-    public float shootDelay = 0.4f; // Ateş etme hızı
-    private float minShootDelay = 0.1f; // Minimum ateş etme hızı
 
     private bool isShooting = false;
+    private PlayerHealth playerHealth;
 
     private void Start()
     {
+        playerHealth = GetComponent<PlayerHealth>();
         StartShooting();
     }
 
     public void AddProjectile()
     {
-        additionalProjectiles += 1;
+        additionalProjectiles++;
     }
 
     public void IncreaseFireRate(float amount)
     {
-        if (shootDelay > minShootDelay)
-        {
-            shootDelay = Mathf.Max(shootDelay - amount, minShootDelay);
-        }
+        // Ateş etme hızını arttır
     }
 
     public void StartShooting()
@@ -44,7 +41,7 @@ public class Player : MonoBehaviour
         while (isShooting)
         {
             Shoot();
-            yield return new WaitForSeconds(shootDelay);
+            yield return new WaitForSeconds(0.40f); // Ateş etme hızını ayarlayın
         }
     }
 
@@ -67,12 +64,17 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("PowerUp"))
+        if (collision.CompareTag("Enemy"))
         {
-            PowerUp powerUp = collision.GetComponent<PowerUp>();
-            if (powerUp != null)
+            if (playerHealth != null)
             {
-                powerUp.ApplyPowerUp(this);
+                playerHealth.TakeDamage(3); // Enemy ile çarpıştığında 3 hasar alır
+            }
+
+            EnemyHealth enemyHealth = collision.GetComponent<EnemyHealth>();
+            if (enemyHealth != null)
+            {
+                enemyHealth.TakeDamage(enemyHealth.health); // Enemy'yi yok eder
             }
         }
     }

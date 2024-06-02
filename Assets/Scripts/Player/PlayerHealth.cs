@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement; // Oyunu yeniden başlatmak için
 
-public class Health : MonoBehaviour
+public class PlayerHealth : MonoBehaviour
 {
     public int maxHealth = 10;
     private int currentHealth;

@@ -12,12 +12,6 @@ public class EnemyMovement : MonoBehaviour
         SetRandomDirection();
     }
 
-    public void InitializeMovement()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        SetRandomDirection();
-    }
-
     private void Update()
     {
         Move();
@@ -48,6 +42,11 @@ public class EnemyMovement : MonoBehaviour
                 transform.position.z
             );
         }
+    }
+    public void InitializeMovement()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        SetRandomDirection();
     }
 
     private void SetRandomDirection()
