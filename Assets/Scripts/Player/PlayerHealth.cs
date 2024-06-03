@@ -1,24 +1,36 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement; // Oyunu yeniden başlatmak için
+using TMPro;
 
 public class PlayerHealth : MonoBehaviour
 {
     public int maxHealth = 10;
     private int currentHealth;
+    public TextMeshProUGUI healthText; // Canı gösterecek TextMeshPro öğesi
 
     private void Start()
     {
         currentHealth = maxHealth;
+        UpdateHealthText();
     }
 
     public void TakeDamage(int amount)
     {
         currentHealth -= amount;
+        UpdateHealthText();
 
         if (currentHealth <= 0)
         {
             Die();
+        }
+    }
+
+    private void UpdateHealthText()
+    {
+        if (healthText != null)
+        {
+            healthText.text = currentHealth.ToString();
         }
     }
 
