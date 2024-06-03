@@ -222,6 +222,8 @@ MonoBehaviour:
   bulletPrefab: {fileID: 4798531951604226628, guid: ccf40477f35f047429481f36154b18c9, type: 3}
   additionalProjectiles: 0
   spreadAngle: 10
+  health: 10
+  fireRate: 0.3
 --- !u!114 &6510444107000766227
 MonoBehaviour:
   m_ObjectHideFlags: 0

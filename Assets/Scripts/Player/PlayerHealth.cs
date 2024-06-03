@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement; // Oyunu yeniden başlatmak için
 
@@ -24,6 +25,12 @@ public class PlayerHealth : MonoBehaviour
     private void Die()
     {
         // Oyunu yeniden başlat
+        StartCoroutine(RestartGame());
+    }
+
+    private IEnumerator RestartGame()
+    {
+        yield return new WaitForEndOfFrame(); // Bir frame bekleyin
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

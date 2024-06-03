@@ -1,12 +1,27 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject playerPrefab;  // Prefab referansı
+   public static GameManager Instance { get; private set; }
 
-    void Start()
+    private void Awake()
     {
-        // Player'ı sahneye instantiate et
-        Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+        // Singleton pattern
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void Start()
+    {
+        // Başlangıç ayarları burada yapılabilir
     }
 }

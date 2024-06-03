@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
     public GameObject bulletPrefab;
     public int additionalProjectiles = 0; // Ekstra ateş edilecek mermi sayısı
     public float spreadAngle = 10f; // Mermilerin yayılma açısı
+    public int health = 10; // Oyuncunun can puanı
+    public float fireRate = 0.3f; // Ateş etme hızı
 
     private bool isShooting = false;
     private PlayerHealth playerHealth;
@@ -24,7 +26,7 @@ public class Player : MonoBehaviour
 
     public void IncreaseFireRate(float amount)
     {
-        // Ateş etme hızını arttır
+        fireRate = Mathf.Max(0.1f, fireRate - amount); // Ateş etme hızını arttır
     }
 
     public void StartShooting()
@@ -41,7 +43,7 @@ public class Player : MonoBehaviour
         while (isShooting)
         {
             Shoot();
-            yield return new WaitForSeconds(0.40f); // Ateş etme hızını ayarlayın
+            yield return new WaitForSeconds(fireRate); // Ateş etme hızını ayarlayın
         }
     }
 

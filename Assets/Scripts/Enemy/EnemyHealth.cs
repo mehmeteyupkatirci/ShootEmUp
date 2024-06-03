@@ -3,6 +3,7 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     public int health = 10;
+    public int scoreValue = 10; // Bu düşmanın verdiği puan
 
     public void TakeDamage(int damage)
     {
@@ -20,6 +21,12 @@ public class EnemyHealth : MonoBehaviour
         {
             powerUpDrop.DropPowerUp();
         }
+        
+        if (ScoreManager.Instance != null)
+        {
+            ScoreManager.Instance.AddScore(scoreValue);
+        }
+        
         Destroy(gameObject);
     }
 
