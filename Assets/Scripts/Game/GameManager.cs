@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        
         // Singleton pattern
         if (Instance == null)
         {
