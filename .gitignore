@@ -22,17 +22,18 @@
 *.booproj
 *.svd
 
-# Unity3D generated meta files
-*.pidb.meta
-*.pdb.meta
-*.mdb.meta
-
 # Unity3D Generated File On Crash Reports
 sysinfo.txt
 
 # Builds
 [Bb]uilds/
 [Bb]uild/
+
+
+# Unity3D generated meta files
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
 
 # Allow these directories to exist, but only include specific files
 [Ll]ibrary/
