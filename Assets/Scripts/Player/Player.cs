@@ -28,6 +28,15 @@ public class Player : MonoBehaviour
     {
         fireRate = Mathf.Max(0.1f, fireRate - amount); // Ateş etme hızını arttır
     }
+     
+     public void IncreaseHealth(int amount)
+    {
+        PlayerHealth playerHealth = GetComponent<PlayerHealth>();
+        if (playerHealth != null)
+        {
+            playerHealth.IncreaseHealth(amount);
+        }
+    }
 
     public void StartShooting()
     {

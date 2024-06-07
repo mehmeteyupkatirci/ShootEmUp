@@ -2,8 +2,15 @@ using UnityEngine;
 
 public class PowerUp : MonoBehaviour
 {
-    public enum PowerUpType { AddProjectile, IncreaseFireRate }
+    public enum PowerUpType
+    {
+        AddProjectile,
+        IncreaseFireRate,
+        IncreaseHealth // Yeni power-up türü
+    }
+
     public PowerUpType powerUpType;
+    public int value = 5; // Power-up değerini tanımlayın (örneğin, can artırma miktarı)
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -13,12 +20,12 @@ public class PowerUp : MonoBehaviour
             if (player != null)
             {
                 ApplyPowerUp(player);
+                Destroy(gameObject); // Power-up'ı yok et
             }
-            Destroy(gameObject); // Güçlendirme yok edilir
         }
     }
 
-    public void ApplyPowerUp(Player player)
+    private void ApplyPowerUp(Player player)
     {
         switch (powerUpType)
         {
@@ -26,7 +33,10 @@ public class PowerUp : MonoBehaviour
                 player.AddProjectile();
                 break;
             case PowerUpType.IncreaseFireRate:
-                player.IncreaseFireRate(0.05f);
+                player.IncreaseFireRate(0.1f); // Örnek değer
+                break;
+            case PowerUpType.IncreaseHealth:
+                player.IncreaseHealth(value); // Yeni health power-up
                 break;
         }
     }

@@ -26,6 +26,12 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+     public void IncreaseHealth(int amount)
+    {
+        currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
+        UpdateHealthText();
+    }
+    
     private void UpdateHealthText()
     {
         if (healthText != null)
