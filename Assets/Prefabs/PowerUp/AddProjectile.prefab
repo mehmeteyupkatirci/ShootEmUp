@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerUpType: 0
-  fireRateIncreaseAmount: 0
+  value: 0
 --- !u!61 &4951698463399933826
 BoxCollider2D:
   m_ObjectHideFlags: 0
