@@ -3,7 +3,12 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float speed = 10f; // Merminin hareket hızı
-    public int damage = 1; // Merminin verdiği hasar
+    private int damage = 1; // Merminin verdiği hasar
+
+    public void SetDamage(int damageAmount)
+    {
+        damage = damageAmount;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -21,7 +26,7 @@ public class Bullet : MonoBehaviour
     private void Update()
     {
         // Mermiyi ileriye doğru hareket ettir
-        transform.Translate(Vector3.up * speed * Time.deltaTime);
+        transform.Translate(Vector2.up * speed * Time.deltaTime);
     }
 
     private void OnBecameInvisible()

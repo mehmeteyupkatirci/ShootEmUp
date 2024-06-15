@@ -9,11 +9,13 @@ public class Player : MonoBehaviour
     public GameObject bulletPrefab;
     public int additionalProjectiles = 0; // Ekstra ateş edilecek mermi sayısı
     public float spreadAngle = 10f; // Mermilerin yayılma açısı
-    public int health = 10; // Oyuncunun can puanı
     public float fireRate = 0.3f; // Ateş etme hızı
     public int exp = 0; // Toplanan EXP miktarı
     public int level = 1; // Oyuncunun seviyesi
     public int expToNextLevel = 100; // İlk seviyeye geçiş için gereken EXP miktarı
+    public int damage = 1; // Oyuncunun verdiği hasar
+    public int maxHealth = 10; // Oyuncunun maksimum can puanı
+    public float speed = 5f; // Oyuncunun hareket hızı
 
     public Slider expSlider; // Level Bar'ı temsil eden Slider
     public TMP_Text levelText; // Level Text bileşeni
@@ -24,6 +26,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         playerHealth = GetComponent<PlayerHealth>();
+        playerHealth.SetMaxHealth(maxHealth);
         StartShooting();
         UpdateHUD();
     }
@@ -62,10 +65,20 @@ public class Player : MonoBehaviour
         exp -= expToNextLevel;
         expToNextLevel = Mathf.RoundToInt(expToNextLevel * 1.5f); // Gelecek seviye için gereken EXP miktarını artır
 
-        // Seviye atlama durumunda yapılacak işlemler (örneğin, sağlık artırma, ateş hızı artırma, vb.)
-        health += 5; // Örneğin, sağlık artırma
+        // Seviye atlama durumunda yapılacak işlemler
+        IncreaseStats();
+
         UpdateHUD();
         Debug.Log("Level Up! New Level: " + level);
+    }
+
+    private void IncreaseStats()
+    {
+        damage += 1; // Hasarı artır
+        maxHealth += 1; // Maksimum canı artır
+        speed += 0.5f; // Hızı artır
+        //health = maxHealth; // Sağlığı maksimum seviyeye getir
+        playerHealth.SetMaxHealth(maxHealth);
     }
 
     private void UpdateHUD()
@@ -102,7 +115,7 @@ public class Player : MonoBehaviour
     private void Shoot()
     {
         // Ana ateş noktası
-        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        ShootBullet(firePoint.position, firePoint.rotation);
 
         // Ek mermiler
         for (int i = 1; i <= additionalProjectiles; i++)
@@ -111,25 +124,18 @@ public class Player : MonoBehaviour
             Quaternion rotationLeft = Quaternion.Euler(new Vector3(0, 0, firePoint.rotation.eulerAngles.z - angle));
             Quaternion rotationRight = Quaternion.Euler(new Vector3(0, 0, firePoint.rotation.eulerAngles.z + angle));
 
-            Instantiate(bulletPrefab, firePoint.position, rotationLeft);
-            Instantiate(bulletPrefab, firePoint.position, rotationRight);
+            ShootBullet(firePoint.position, rotationLeft);
+            ShootBullet(firePoint.position, rotationRight);
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void ShootBullet(Vector3 position, Quaternion rotation)
     {
-        if (collision.CompareTag("Enemy"))
+        GameObject bullet = Instantiate(bulletPrefab, position, rotation);
+        Bullet bulletScript = bullet.GetComponent<Bullet>();
+        if (bulletScript != null)
         {
-            if (playerHealth != null)
-            {
-                playerHealth.TakeDamage(3); // Enemy ile çarpıştığında 3 hasar alır
-            }
-
-            EnemyHealth enemyHealth = collision.GetComponent<EnemyHealth>();
-            if (enemyHealth != null)
-            {
-                enemyHealth.TakeDamage(enemyHealth.health); // Enemy'yi yok eder
-            }
+            bulletScript.SetDamage(damage); // Merminin hasarını ayarla
         }
     }
 }

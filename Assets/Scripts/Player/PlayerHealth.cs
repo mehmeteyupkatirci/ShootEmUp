@@ -15,6 +15,13 @@ public class PlayerHealth : MonoBehaviour
         UpdateHealthText();
     }
 
+      public void SetMaxHealth(int amount)
+    {
+        maxHealth = amount;
+        currentHealth = maxHealth; // Maksimum sağlığı güncellediğinizde, mevcut sağlığı da maksimum yapın
+        UpdateHealthText();
+    }
+
     public void TakeDamage(int amount)
     {
         currentHealth -= amount;
