@@ -1,5 +1,7 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
@@ -9,6 +11,12 @@ public class Player : MonoBehaviour
     public float spreadAngle = 10f; // Mermilerin yayılma açısı
     public int health = 10; // Oyuncunun can puanı
     public float fireRate = 0.3f; // Ateş etme hızı
+    public int exp = 0; // Toplanan EXP miktarı
+    public int level = 1; // Oyuncunun seviyesi
+    public int expToNextLevel = 100; // İlk seviyeye geçiş için gereken EXP miktarı
+
+    public Slider expSlider; // Level Bar'ı temsil eden Slider
+    public TMP_Text levelText; // Level Text bileşeni
 
     private bool isShooting = false;
     private PlayerHealth playerHealth;
@@ -17,6 +25,7 @@ public class Player : MonoBehaviour
     {
         playerHealth = GetComponent<PlayerHealth>();
         StartShooting();
+        UpdateHUD();
     }
 
     public void AddProjectile()
@@ -28,13 +37,47 @@ public class Player : MonoBehaviour
     {
         fireRate = Mathf.Max(0.1f, fireRate - amount); // Ateş etme hızını arttır
     }
-     
-     public void IncreaseHealth(int amount)
+
+    public void IncreaseHealth(int amount)
     {
-        PlayerHealth playerHealth = GetComponent<PlayerHealth>();
         if (playerHealth != null)
         {
             playerHealth.IncreaseHealth(amount);
+        }
+    }
+
+    public void AddEXP(int amount)
+    {
+        exp += amount;
+        if (exp >= expToNextLevel)
+        {
+            LevelUp();
+        }
+        UpdateHUD();
+    }
+
+    private void LevelUp()
+    {
+        level++;
+        exp -= expToNextLevel;
+        expToNextLevel = Mathf.RoundToInt(expToNextLevel * 1.5f); // Gelecek seviye için gereken EXP miktarını artır
+
+        // Seviye atlama durumunda yapılacak işlemler (örneğin, sağlık artırma, ateş hızı artırma, vb.)
+        health += 5; // Örneğin, sağlık artırma
+        UpdateHUD();
+        Debug.Log("Level Up! New Level: " + level);
+    }
+
+    private void UpdateHUD()
+    {
+        if (expSlider != null)
+        {
+            expSlider.maxValue = expToNextLevel;
+            expSlider.value = exp;
+        }
+        if (levelText != null)
+        {
+            levelText.text = "Level: " + level;
         }
     }
 

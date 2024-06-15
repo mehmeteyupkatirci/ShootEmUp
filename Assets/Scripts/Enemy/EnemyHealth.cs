@@ -4,6 +4,7 @@ public class EnemyHealth : MonoBehaviour
 {
     public int health = 10;
     public int scoreValue = 10; // Bu düşmanın verdiği puan
+    public GameObject expOrbPrefab; // EXP Orb prefab'ını buraya bağlayın
 
     public void TakeDamage(int damage)
     {
@@ -21,12 +22,11 @@ public class EnemyHealth : MonoBehaviour
         {
             powerUpDrop.DropPowerUp();
         }
-        
-        if (ScoreManager.Instance != null)
-        {
-            ScoreManager.Instance.AddScore(scoreValue);
-        }
-        
+
+        // EXP Orbi bırak
+        Instantiate(expOrbPrefab, transform.position, Quaternion.identity);
+
+        ScoreManager.Instance.AddScore(scoreValue);
         Destroy(gameObject);
     }
 

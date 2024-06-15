@@ -201,6 +201,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 3
   scoreValue: 10
+  expOrbPrefab: {fileID: 1456642011402507950, guid: d41a72737894bb24884bd75ec94d4c32, type: 3}
 --- !u!114 &-2263347241561147217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,12 +216,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerUpDropChance: 0.2
   powerUpList:
-  - powerUpType: 0
-    powerUpPrefab: {fileID: 7764129048511618294, guid: 9aa1d8715d84cd64092c8301d414500e, type: 3}
+  - powerUpPrefab: {fileID: 7764129048511618294, guid: 9aa1d8715d84cd64092c8301d414500e, type: 3}
     dropChanceWeight: 0.2
-  - powerUpType: 1
-    powerUpPrefab: {fileID: 7513805807508259902, guid: 7a4f7be12cea0454a92287af199c93ad, type: 3}
+    powerUpType: 0
+  - powerUpPrefab: {fileID: 7513805807508259902, guid: 7a4f7be12cea0454a92287af199c93ad, type: 3}
     dropChanceWeight: 0.5
-  - powerUpType: 2
-    powerUpPrefab: {fileID: 1512265048552005520, guid: ced3fbb3b3539184fa4dfd0e0f415cfe, type: 3}
+    powerUpType: 1
+  - powerUpPrefab: {fileID: 1512265048552005520, guid: ced3fbb3b3539184fa4dfd0e0f415cfe, type: 3}
     dropChanceWeight: 0.3
+    powerUpType: 2
