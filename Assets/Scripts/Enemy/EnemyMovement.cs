@@ -9,6 +9,7 @@ public class EnemyMovement : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        rb.isKinematic = false; // Rigidbody'yi dynamic olarak ayarla
         SetRandomDirection();
     }
 
@@ -43,9 +44,11 @@ public class EnemyMovement : MonoBehaviour
             );
         }
     }
+
     public void InitializeMovement()
     {
         rb = GetComponent<Rigidbody2D>();
+        rb.isKinematic = false; // Rigidbody'yi dynamic olarak ayarla
         SetRandomDirection();
     }
 
@@ -53,5 +56,15 @@ public class EnemyMovement : MonoBehaviour
     {
         float angle = Random.Range(0f, 2f * Mathf.PI);
         direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)).normalized;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            ContactPoint2D contact = collision.contacts[0];
+            Vector2 normal = contact.normal;
+            direction = Vector2.Reflect(direction, normal).normalized;
+        }
     }
 }
