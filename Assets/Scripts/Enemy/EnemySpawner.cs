@@ -9,6 +9,12 @@ public class EnemySpawner : MonoBehaviour
 
     private void Start()
     {
+        Player player = FindObjectOfType<Player>();
+        if (player != null)
+        {
+            player.OnLevelUp += HandleLevelUp;
+        }
+
         StartCoroutine(SpawnEnemies());
     }
 
@@ -30,5 +36,11 @@ public class EnemySpawner : MonoBehaviour
         // Rastgele bir düşman prefab'ı seç
         int randomIndex = Random.Range(0, enemyPrefabs.Length);
         Instantiate(enemyPrefabs[randomIndex], spawnPosition, Quaternion.identity);
+    }
+
+    private void HandleLevelUp(int newLevel)
+    {
+        // Spawn interval'ı seviye ile birlikte azaltın
+        spawnInterval = Mathf.Max(0.5f, 2f - newLevel * 0.2f);
     }
 }

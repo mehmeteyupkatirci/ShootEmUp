@@ -15,7 +15,7 @@ public class PlayerHealth : MonoBehaviour
         UpdateHealthText();
     }
 
-      public void SetMaxHealth(int amount)
+    public void SetMaxHealth(int amount)
     {
         maxHealth = amount;
         currentHealth = maxHealth; // Maksimum sağlığı güncellediğinizde, mevcut sağlığı da maksimum yapın
@@ -33,7 +33,7 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-     public void IncreaseHealth(int amount)
+    public void IncreaseHealth(int amount)
     {
         currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
         UpdateHealthText();
@@ -57,5 +57,13 @@ public class PlayerHealth : MonoBehaviour
     {
         yield return new WaitForEndOfFrame(); // Bir frame bekleyin
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy"))
+        {
+            TakeDamage(1); // Hasar miktarı buradan ayarlanabilr
+        }
     }
 }

@@ -1,9 +1,12 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
 public class Player : MonoBehaviour
 {
+    public event Action<int> OnLevelUp; // Seviye atlama olayı
+
     public int exp = 0; // Toplanan EXP miktarı
     public int level = 1; // Oyuncunun seviyesi
     public int expToNextLevel = 100; // İlk seviyeye geçiş için gereken EXP miktarı
@@ -67,7 +70,7 @@ public class Player : MonoBehaviour
 
         // Seviye atlama durumunda yapılacak işlemler
         IncreaseStats();
-
+        OnLevelUp?.Invoke(level); // Seviye atlama olayını tetikleyin
         UpdateHUD();
         Debug.Log("Level Up! New Level: " + level);
     }

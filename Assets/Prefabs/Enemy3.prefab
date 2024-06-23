@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 990393042967752004}
   - component: {fileID: 579218230249827436}
   - component: {fileID: 2636555937374650940}
-  - component: {fileID: 3114532590392629284}
   - component: {fileID: 2329170389697654325}
   - component: {fileID: 6972718659560705385}
   - component: {fileID: 3656401849085251263}
@@ -175,19 +174,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ddfa07422334a144a5e2b4b2f22ed05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3114532590392629284
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7529228617922258632}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6311184909a9e4b4bbf58a9861355226, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 2
 --- !u!114 &2329170389697654325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,7 +201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a73dd4561ad091b45ab1df55e5267d90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerUpDropChance: 0.2
+  powerUpDropChance: 0.1
   powerUpList:
   - powerUpPrefab: {fileID: 7764129048511618294, guid: 9aa1d8715d84cd64092c8301d414500e, type: 3}
     dropChanceWeight: 0.2
