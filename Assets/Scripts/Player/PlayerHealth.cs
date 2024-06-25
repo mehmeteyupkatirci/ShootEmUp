@@ -7,12 +7,14 @@ public class PlayerHealth : MonoBehaviour
     private int currentHealth;
     private TextMeshProUGUI healthText; // Canı gösterecek TextMeshPro öğesi
     private GameObject gameOverPanel; // Game Over Panel referansı
+    private TextMeshProUGUI gameOverScoreText; // Game Over Panelindeki skor göstergesi
 
     private void Awake()
     {
         // Sahne içinde Canvas altındaki referansları bul
         healthText = GameObject.Find("HealthText").GetComponent<TextMeshProUGUI>();
         gameOverPanel = GameObject.Find("GameOverPanel");
+        gameOverScoreText = GameObject.Find("GameOverScoreText").GetComponent<TextMeshProUGUI>();
 
         // GameOverPanel başlangıçta kapalı olmalı
         if (gameOverPanel != null)
@@ -62,6 +64,13 @@ public class PlayerHealth : MonoBehaviour
 
     private void Die()
     {
+        // Skoru güncelle
+        if (gameOverScoreText != null)
+        {
+            int finalScore = ScoreManager.Instance.GetScore(); // Skoru ScoreManager'dan al
+            gameOverScoreText.text = "Score: " + finalScore.ToString();
+        }
+
         // Game Over Panel'i göster
         if (gameOverPanel != null)
         {
