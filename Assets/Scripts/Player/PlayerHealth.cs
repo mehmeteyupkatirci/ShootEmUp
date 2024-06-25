@@ -48,6 +48,14 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy"))
+        {
+            TakeDamage(1); // Hasar miktarı buradan ayarlanabilr
+        }
+    }
+
     public void IncreaseHealth(int amount)
     {
         currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
