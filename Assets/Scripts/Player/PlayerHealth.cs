@@ -1,13 +1,25 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement; // Oyunu yeniden başlatmak için
 using TMPro;
 
 public class PlayerHealth : MonoBehaviour
 {
     public int maxHealth = 10;
     private int currentHealth;
-    public TextMeshProUGUI healthText; // Canı gösterecek TextMeshPro öğesi
+    private TextMeshProUGUI healthText; // Canı gösterecek TextMeshPro öğesi
+    private GameObject gameOverPanel; // Game Over Panel referansı
+
+    private void Awake()
+    {
+        // Sahne içinde Canvas altındaki referansları bul
+        healthText = GameObject.Find("HealthText").GetComponent<TextMeshProUGUI>();
+        gameOverPanel = GameObject.Find("GameOverPanel");
+
+        // GameOverPanel başlangıçta kapalı olmalı
+        if (gameOverPanel != null)
+        {
+            gameOverPanel.SetActive(false);
+        }
+    }
 
     private void Start()
     {
@@ -25,6 +37,7 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(int amount)
     {
         currentHealth -= amount;
+        currentHealth = Mathf.Max(currentHealth, 0); // Canın negatif olmamasını sağla
         UpdateHealthText();
 
         if (currentHealth <= 0)
@@ -38,7 +51,7 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
         UpdateHealthText();
     }
-    
+
     private void UpdateHealthText()
     {
         if (healthText != null)
@@ -49,21 +62,11 @@ public class PlayerHealth : MonoBehaviour
 
     private void Die()
     {
-        // Oyunu yeniden başlat
-        StartCoroutine(RestartGame());
-    }
-
-    private IEnumerator RestartGame()
-    {
-        yield return new WaitForEndOfFrame(); // Bir frame bekleyin
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Enemy"))
+        // Game Over Panel'i göster
+        if (gameOverPanel != null)
         {
-            TakeDamage(1); // Hasar miktarı buradan ayarlanabilr
+            gameOverPanel.SetActive(true);
+            Time.timeScale = 0f; // Oyunu durdur
         }
     }
 }
