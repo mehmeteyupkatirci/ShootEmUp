@@ -2,17 +2,30 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public int health = 10;
+    private int currentHealth;
+    public int maxHealth = 3;
     public int scoreValue = 10; // Bu düşmanın verdiği puan
     public GameObject expOrbPrefab; // EXP Orb prefab'ını buraya bağlayın
 
+    private void Start()
+    {
+        currentHealth = maxHealth;
+    }
+
     public void TakeDamage(int damage)
     {
-        health -= damage;
-        if (health <= 0)
+        currentHealth -= damage;
+        if (currentHealth <= 0)
         {
             Die();
         }
+    }
+
+
+    public void LevelUp(int level)
+    {
+        maxHealth += level * 2; // Seviye başına 2 sağlık puanı ekleyin
+        currentHealth = maxHealth; // Sağlığı maksimum yap
     }
 
     private void Die()

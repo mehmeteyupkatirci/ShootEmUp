@@ -6,8 +6,9 @@ public class EnemyShooter : MonoBehaviour
 {
     public GameObject bulletPrefab;
     public Transform firePoint;
-    public float fireRate = 1f;
+    public float fireRate = 2f;
     private float nextFireTime = 0f;
+    public int attackDamage = 1;
 
     private void Update()
     {
@@ -20,6 +21,16 @@ public class EnemyShooter : MonoBehaviour
 
     private void Shoot()
     {
-        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        EnemyBullet bulletScript = bullet.GetComponent<EnemyBullet>();
+        if (bulletScript != null)
+        {
+            bulletScript.damage = attackDamage;
+        }
+    }
+
+    public void LevelUp(int level)
+    {
+        attackDamage += level; // Seviye başına 1 saldırı gücü ekleyin
     }
 }

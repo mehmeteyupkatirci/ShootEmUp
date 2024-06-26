@@ -5,25 +5,21 @@ using TMPro;
 
 public class Player : MonoBehaviour
 {
-    public event Action<int> OnLevelUp; // Seviye atlama olayı
+    public event Action<int> OnLevelUp;
+    public Slider expSlider;
+    public TMP_Text levelText;
 
-    public int exp = 0; // Toplanan EXP miktarı
-    public int level = 1; // Oyuncunun seviyesi
-    public int expToNextLevel = 100; // İlk seviyeye geçiş için gereken EXP miktarı
-    public int maxHealth = 10; // Oyuncunun maksimum can puanı
-    public float speed = 5f; // Oyuncunun hareket hızı
-
-    public Slider expSlider; // Level Bar'ı temsil eden Slider
-    public TMP_Text levelText; // Level Text bileşeni
-
+    private PlayerModel playerModel;
     private PlayerHealth playerHealth;
     private PlayerShooting playerShooting;
 
     private void Start()
     {
+        playerModel = new PlayerModel(1, 0, 100, 10, 5f, 1);
         playerHealth = GetComponent<PlayerHealth>();
         playerShooting = GetComponent<PlayerShooting>();
-        playerHealth.SetMaxHealth(maxHealth);
+
+        playerHealth.SetMaxHealth(playerModel.MaxHealth);
         playerShooting.StartShooting();
         UpdateHUD();
     }
@@ -54,45 +50,24 @@ public class Player : MonoBehaviour
 
     public void AddEXP(int amount)
     {
-        exp += amount;
-        if (exp >= expToNextLevel)
+        playerModel.AddEXP(amount);
+        UpdateHUD();
+        if (OnLevelUp != null)
         {
-            LevelUp();
+            OnLevelUp(playerModel.Level);
         }
-        UpdateHUD();
-    }
-
-    private void LevelUp()
-    {
-        level++;
-        exp -= expToNextLevel;
-        expToNextLevel = Mathf.RoundToInt(expToNextLevel * 1.5f); // Gelecek seviye için gereken EXP miktarını artır
-
-        // Seviye atlama durumunda yapılacak işlemler
-        IncreaseStats();
-        OnLevelUp?.Invoke(level); // Seviye atlama olayını tetikleyin
-        UpdateHUD();
-        Debug.Log("Level Up! New Level: " + level);
-    }
-
-    private void IncreaseStats()
-    {
-        playerShooting.damage += 1; // Hasarı artır
-        maxHealth += 1; // Maksimum canı artır
-        speed += 0.5f; // Hızı artır
-        playerHealth.SetMaxHealth(maxHealth);
     }
 
     private void UpdateHUD()
     {
         if (expSlider != null)
         {
-            expSlider.maxValue = expToNextLevel;
-            expSlider.value = exp;
+            expSlider.maxValue = playerModel.ExpToNextLevel;
+            expSlider.value = playerModel.Exp;
         }
         if (levelText != null)
         {
-            levelText.text = "Level: " + level;
+            levelText.text = "Level: " + playerModel.Level;
         }
     }
 }

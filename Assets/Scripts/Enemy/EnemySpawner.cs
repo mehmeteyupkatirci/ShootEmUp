@@ -3,9 +3,23 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject[] enemyPrefabs; // Düşman prefab'larının listesi
-    public float spawnInterval = 2f; // Düşmanların oluşma süresi
-    public float xMin, xMax; // X eksenindeki minimum ve maksimum değerler
+    public static EnemySpawner Instance { get; private set; }
+
+    public GameObject[] enemyPrefabs;
+    private float spawnInterval = 4f;
+    public float xMin, xMax;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Start()
     {
@@ -29,18 +43,27 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        // Rastgele bir X pozisyonu seç
         float randomX = Random.Range(xMin, xMax);
         Vector3 spawnPosition = new Vector3(randomX, transform.position.y, 0);
 
-        // Rastgele bir düşman prefab'ı seç
         int randomIndex = Random.Range(0, enemyPrefabs.Length);
         Instantiate(enemyPrefabs[randomIndex], spawnPosition, Quaternion.identity);
     }
 
     private void HandleLevelUp(int newLevel)
     {
-        // Spawn interval'ı seviye ile birlikte azaltın
-        spawnInterval = Mathf.Max(0.5f, 2f - newLevel * 0.2f);
+        spawnInterval = Mathf.Max(0.5f, 4f - newLevel * 0.2f);
+
+        // Tüm mevcut düşmanları güçlendir
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemy in enemies)
+        {
+            enemy.GetComponent<Enemy>().LevelUpEnemy(newLevel);
+        }
+    }
+
+    public void IncreaseEnemyStrength(int level)
+    {
+        // Bu metot, yeni spawn olacak düşmanların gücünü artırmak için kullanılabilir
     }
 }
