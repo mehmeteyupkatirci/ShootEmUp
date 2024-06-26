@@ -3,10 +3,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public EnemyType enemyType;
-    public EnemyStats enemyStats { get; private set; }
-    private EnemyModel enemyModel;
-
-    // private EnemyHealth enemyHealth;
+    public EnemyModel enemyModel;
     private EnemyShooter enemyShooter;
     private EnemyMovement enemyMovement;
 
@@ -20,10 +17,22 @@ public class Enemy : MonoBehaviour
     
     private void Start()
     {
-        // EnemyDatabase'den ilgili EnemyStats nesnesini al
-        EnemyStats enemyStats = EnemyDatabase.GetEnemyStats(enemyType);
-        // EnemyModel'i oluştur ve EnemyStats ile başlat
-        enemyModel = new EnemyModel(enemyStats);
+        // EnemyDatabase'den ilgili EnemyModel nesnesini al
+        EnemyModel enemyStats = EnemyDatabase.GetEnemy(enemyType);
+        // EnemyModel'i oluştur ve başlat
+        enemyModel = new EnemyModel(
+            enemyStats.Health, 
+            enemyStats.AttackDamage, 
+            enemyStats.HitDamage, 
+            enemyStats.Speed, 
+            enemyStats.PowerUpDropChance, 
+            enemyStats.AttackSpeed, 
+            enemyStats.Score
+        );
+
+        // Örnek olarak enemyMovement ve enemyShooter gibi bileşenleri de başlatmak gerekebilir
+        // enemyMovement = GetComponent<EnemyMovement>();
+        // enemyShooter = GetComponent<EnemyShooter>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

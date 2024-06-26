@@ -7,12 +7,14 @@ public class EnemyShooter : MonoBehaviour
     private float fireRate;
     private float nextFireTime = 0f;
     private int attackDamage;
+    private EnemyModel enemyModel;
 
     private void Start()
     {
         var enemy = GetComponent<Enemy>();
-        attackDamage = enemy.enemyStats.AttackDamage;
-        fireRate = enemy.enemyStats.AttackSpeed;
+        enemyModel = enemy.enemyModel;
+        attackDamage = enemyModel.AttackDamage;
+        fireRate = enemyModel.AttackSpeed;
     }
 
     private void Update()

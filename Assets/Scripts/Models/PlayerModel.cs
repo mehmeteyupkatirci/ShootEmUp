@@ -18,10 +18,10 @@ public class PlayerModel
         Damage = damage;
     }
 
-    public void LevelUp()
+    public void LevelUp(int level)
     {
         Damage += 1;
-        MaxHealth += 1;
+        MaxHealth += level;
         Speed += 0.5f;
         Health = MaxHealth;
 

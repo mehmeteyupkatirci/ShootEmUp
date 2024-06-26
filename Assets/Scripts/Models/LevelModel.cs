@@ -23,7 +23,7 @@ public class LevelModel
         CurrentExp -= ExpToNextLevel;
         ExpToNextLevel = Mathf.RoundToInt(ExpToNextLevel * 1.5f);
 
-        playerModel.LevelUp();
+        playerModel.LevelUp(Level);
         enemyModel.LevelUp(Level);
     }
 }
