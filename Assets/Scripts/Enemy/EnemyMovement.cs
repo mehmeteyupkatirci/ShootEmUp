@@ -6,6 +6,11 @@ public class EnemyMovement : MonoBehaviour
     private Vector2 direction; // Düşmanın hareket yönü
     private Rigidbody2D rb;
 
+    public void SetSpeed(float newSpeed)
+    {
+        speed = newSpeed;
+    }
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();

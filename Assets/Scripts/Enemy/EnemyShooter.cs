@@ -1,14 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyShooter : MonoBehaviour
 {
     public GameObject bulletPrefab;
     public Transform firePoint;
-    public float fireRate = 2f;
+    private float fireRate;
     private float nextFireTime = 0f;
-    public int attackDamage = 1;
+    private int attackDamage;
+
+    private void Start()
+    {
+        var enemy = GetComponent<Enemy>();
+        attackDamage = enemy.enemyStats.AttackDamage;
+        fireRate = enemy.enemyStats.AttackSpeed;
+    }
 
     private void Update()
     {
@@ -22,15 +27,16 @@ public class EnemyShooter : MonoBehaviour
     private void Shoot()
     {
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        EnemyBullet bulletScript = bullet.GetComponent<EnemyBullet>();
-        if (bulletScript != null)
-        {
-            bulletScript.damage = attackDamage;
-        }
+        bullet.GetComponent<EnemyBullet>().SetDamage(attackDamage);
     }
 
-    public void LevelUp(int level)
+    public void SetAttackDamage(int newAttackDamage)
     {
-        attackDamage += level; // Seviye başına 1 saldırı gücü ekleyin
+        attackDamage = newAttackDamage;
+    }
+
+    public void SetFireRate(float newFireRate)
+    {
+        fireRate = newFireRate;
     }
 }

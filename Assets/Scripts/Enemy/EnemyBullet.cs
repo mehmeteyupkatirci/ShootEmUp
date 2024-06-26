@@ -3,27 +3,31 @@ using UnityEngine;
 public class EnemyBullet : MonoBehaviour
 {
     public float speed = 5f;
-    public int damage = 1; // Merminin verdiği hasar
+    private int damage;
     private Vector2 moveDirection;
 
     void Start()
     {
-        Transform player = GameObject.FindGameObjectWithTag("Player").transform; // Oyuncuyu bul
+        Transform player = GameObject.FindGameObjectWithTag("Player").transform;
         if (player != null)
         {
-            Vector2 target = player.position; // Oyuncunun konumunu hedef olarak belirle
-            moveDirection = (target - (Vector2)transform.position).normalized * speed; // Hedef yönünü belirle ve normalleştir
+            Vector2 target = player.position;
+            moveDirection = (target - (Vector2)transform.position).normalized * speed;
         }
         else
         {
-            moveDirection = Vector2.down * speed; // Eğer oyuncu yoksa aşağı doğru git
+            moveDirection = Vector2.down * speed;
         }
     }
 
     void Update()
     {
-        // Belirlenen yöne doğru hareket et
         transform.Translate(moveDirection * Time.deltaTime);
+    }
+
+    public void SetDamage(int newDamage)
+    {
+        damage = newDamage;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -33,14 +37,14 @@ public class EnemyBullet : MonoBehaviour
             PlayerHealth playerHealth = collision.GetComponent<PlayerHealth>();
             if (playerHealth != null)
             {
-                playerHealth.TakeDamage(damage); // Hasar ver
+                playerHealth.TakeDamage(damage);
             }
-            Destroy(gameObject); // Mermiyi yok et
+            Destroy(gameObject);
         }
     }
 
     private void OnBecameInvisible()
     {
-        Destroy(gameObject); // Mermi ekrandan çıktığında yok et
+        Destroy(gameObject);
     }
 }

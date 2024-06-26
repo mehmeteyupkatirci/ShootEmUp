@@ -1,4 +1,8 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -10,16 +14,18 @@ public class Player : MonoBehaviour
     public TMP_Text levelText;
 
     private PlayerModel playerModel;
+    private LevelModel levelModel;
     private PlayerHealth playerHealth;
     private PlayerShooting playerShooting;
 
     private void Start()
     {
-        playerModel = new PlayerModel(1, 0, 100, 10, 5f, 1);
+        // playerModel = new PlayerModel(10 ,10 ,5 ,1);
+        levelModel = new LevelModel();
         playerHealth = GetComponent<PlayerHealth>();
         playerShooting = GetComponent<PlayerShooting>();
 
-        playerHealth.SetMaxHealth(playerModel.MaxHealth);
+        // playerHealth.SetMaxHealth(playerModel.MaxHealth);
         playerShooting.StartShooting();
         UpdateHUD();
     }
@@ -50,24 +56,20 @@ public class Player : MonoBehaviour
 
     public void AddEXP(int amount)
     {
-        playerModel.AddEXP(amount);
+        levelModel.AddEXP(amount);
         UpdateHUD();
-        if (OnLevelUp != null)
-        {
-            OnLevelUp(playerModel.Level);
-        }
     }
 
     private void UpdateHUD()
     {
         if (expSlider != null)
         {
-            expSlider.maxValue = playerModel.ExpToNextLevel;
-            expSlider.value = playerModel.Exp;
+            expSlider.maxValue = levelModel.ExpToNextLevel;
+            expSlider.value = levelModel.CurrentExp;
         }
         if (levelText != null)
         {
-            levelText.text = "Level: " + playerModel.Level;
+            levelText.text = "Level: " + levelModel.Level.ToString();
         }
     }
 }

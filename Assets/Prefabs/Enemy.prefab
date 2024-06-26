@@ -174,6 +174,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ddfa07422334a144a5e2b4b2f22ed05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseHealth: 50
+  baseAttackDamage: 5
+  baseHitDamage: 2
+  baseSpeed: 2
+  basePowerUpDropChance: 0.1
 --- !u!114 &6161021197080387642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,7 +204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68574f5c092dbc242bfcb8be421b779e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 3
+  maxHealth: 3
   scoreValue: 10
   expOrbPrefab: {fileID: 1456642011402507950, guid: d41a72737894bb24884bd75ec94d4c32, type: 3}
 --- !u!114 &-2263347241561147217
